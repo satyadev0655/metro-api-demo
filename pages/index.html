@@ -1,0 +1,129 @@
+<link rel="stylesheet" href="./style.css" />
+<h1>Hello Express!</h1>
+
+RED LANE <br />
+FROM
+<select id="fromSt" name="fromSt" class="hfrom_station">
+  <option>--Please Select--</option>
+  <option style="color: #ff0000" value="1">Miyapur</option>
+  <option style="color: #ff0000" value="2">JNTU College</option>
+  <option style="color: #ff0000" value="3">KPHB Colony</option>
+  <option style="color: #ff0000" value="4">Kukatpally</option>
+  <option style="color: #ff0000" value="5">Dr.B.R. Ambedkar Balanagar</option>
+  <option style="color: #ff0000" value="6">Moosapet</option>
+  <option style="color: #ff0000" value="7">Bharatnagar</option>
+  <option style="color: #ff0000" value="8">Erragadda</option>
+  <option style="color: #ff0000" value="9">ESI Hospital</option>
+  <option style="color: #ff0000" value="10">S.R. Nagar</option>
+  <option style="color: #ff0000" value="11">Ameerpet</option>
+  <option style="color: #ff0000" value="12">Panjagutta</option>
+  <option style="color: #ff0000" value="13">Irrum Manzil</option>
+  <option style="color: #ff0000" value="14">Khairatabad</option>
+  <option style="color: #ff0000" value="15">Lakdi-Ka-Pul</option>
+  <option style="color: #ff0000" value="16">Assembly</option>
+  <option style="color: #ff0000" value="17">Nampally</option>
+  <option style="color: #ff0000" value="18">Gandhi Bhavan</option>
+  <option style="color: #ff0000" value="19">Osmania Medical College</option>
+  <option style="color: #ff0000" value="20">M G Bus station</option>
+  <option style="color: #ff0000" value="21">Malakpet</option>
+  <option style="color: #ff0000" value="22">New Market</option>
+  <option style="color: #ff0000" value="23">Musarambagh</option>
+  <option style="color: #ff0000" value="24">Dilsukhnagar</option>
+  <option style="color: #ff0000" value="25">Chaitanyapuri</option>
+  <option style="color: #ff0000" value="26">Victoria Memorial</option>
+  <option style="color: #ff0000" value="27">L B Nagar</option>
+</select>
+
+<br />
+
+To
+<select id="toSt" name="toSt" class="hfrom_station">
+  <option>--Please Select--</option>
+  <option style="color: #ff0000" value="1">Miyapur</option>
+  <option style="color: #ff0000" value="2">JNTU College</option>
+  <option style="color: #ff0000" value="3">KPHB Colony</option>
+  <option style="color: #ff0000" value="4">Kukatpally</option>
+  <option style="color: #ff0000" value="5">Dr.B.R. Ambedkar Balanagar</option>
+  <option style="color: #ff0000" value="6">Moosapet</option>
+  <option style="color: #ff0000" value="7">Bharatnagar</option>
+  <option style="color: #ff0000" value="8">Erragadda</option>
+  <option style="color: #ff0000" value="9">ESI Hospital</option>
+  <option style="color: #ff0000" value="10">S.R. Nagar</option>
+  <option style="color: #ff0000" value="11">Ameerpet</option>
+  <option style="color: #ff0000" value="12">Panjagutta</option>
+  <option style="color: #ff0000" value="13">Irrum Manzil</option>
+  <option style="color: #ff0000" value="14">Khairatabad</option>
+  <option style="color: #ff0000" value="15">Lakdi-Ka-Pul</option>
+  <option style="color: #ff0000" value="16">Assembly</option>
+  <option style="color: #ff0000" value="17">Nampally</option>
+  <option style="color: #ff0000" value="18">Gandhi Bhavan</option>
+  <option style="color: #ff0000" value="19">Osmania Medical College</option>
+  <option style="color: #ff0000" value="20">M G Bus station</option>
+  <option style="color: #ff0000" value="21">Malakpet</option>
+  <option style="color: #ff0000" value="22">New Market</option>
+  <option style="color: #ff0000" value="23">Musarambagh</option>
+  <option style="color: #ff0000" value="24">Dilsukhnagar</option>
+  <option style="color: #ff0000" value="25">Chaitanyapuri</option>
+  <option style="color: #ff0000" value="26">Victoria Memorial</option>
+  <option style="color: #ff0000" value="27">L B Nagar</option>
+</select>
+
+<br />
+<button onclick="getFareDetails()">Get Fare</button>
+
+<br>
+
+<table>
+<tr>
+<td>fromStationName</td>
+<td><span id="fromStationName"></td>
+</tr>
+<tr>
+<td>toStationName</td>
+<td><span id="toStationName"></td>
+</tr>
+
+<tr>
+<td>fare</td>
+<td><span id="fare"></td>
+</tr>
+
+<tr>
+<td></td>
+<td></td>
+</tr>
+</table>
+
+<script>
+  function getFareDetails() {
+    var fromStation = document.getElementById('fromSt').value;
+    var toSt = document.getElementById('toSt').value;
+    var fromStn = document.getElementById("fromSt");
+    var fromStationName = fromStn.options[fromStn.selectedIndex].text;
+    var toStn = document.getElementById("toSt");
+    var toStationName = toStn.options[toStn.selectedIndex].text;
+
+    var apiUrl="https://www.ltmetro.com/wp-admin/admin-ajax.php?action=get_time_fare&fromStation="+fromStationName+"&toStation="+toStationName+"&fromStationid="+fromStation+"&toStationid="+toSt;
+
+    console.log(apiUrl);
+
+    var oReq = new XMLHttpRequest();
+oReq.addEventListener("load", reqListener);
+oReq.open("GET", apiUrl);
+oReq.send();
+
+
+    //alert(toSt);
+  }
+
+  function reqListener () {
+  console.log(this.responseText);
+  data = JSON.parse(this.responseText);
+  console.log(data);
+  document.getElementById("fromStationName").innerHTML=data['fromStationName'];
+  document.getElementById("toStationName").innerHTML=data['toStationName'];
+  document.getElementById("fare").innerHTML=data['fare'];
+}
+
+
+</script>
